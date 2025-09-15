@@ -195,6 +195,23 @@ func main() {
 					return nil
 				},
 			},
+                        {
+    Name:    "amf-load-phases",
+    Aliases: []string{"alp"},
+    Usage:   "Run phased AMF load testing scenario",
+    Action: func(c *cli.Context) error {
+        phases := []templates.Phase{
+            {Rate: 5, Duration: 10},
+            {Rate: 10, Duration: 20},
+            {Rate: 20, Duration: 30},
+        }
+        log.Info("[TESTER] Starting phased AMF load test")
+        total := templates.TestRqsPhases(phases)
+        log.Info("[TESTER] Total AMF Responses across all phases: ", total)
+        return nil
+    },
+},
+
 		},
 	}
 	err := app.Run(os.Args)
